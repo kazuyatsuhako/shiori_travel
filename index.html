@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>別府ゆけむりと、サンリオの三日間</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --umi:#1567A0;
+  --fukaai:#0B2A43;
+  --yuke:#F2F6F8;
+  --momo:#EE8FA6;
+  --shu:#C0392B;
+  --sumi:#17242E;
+  --usu:#6B7C88;
+  --sen:#DCE5EA;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Zen Kaku Gothic New",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+  background:var(--yuke);color:var(--sumi);
+  line-height:1.75;font-size:15px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:520px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 60px rgba(11,42,67,.08)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;background:var(--fukaai);color:#fff;padding:52px 24px 40px;overflow:hidden}
+.hero svg{position:absolute;inset:0;width:100%;height:100%;opacity:.32}
+.steam path{fill:none;stroke:#7FC4E8;stroke-width:1.4;stroke-linecap:round;
+  stroke-dasharray:5 10;animation:rise 9s linear infinite}
+.steam path:nth-child(2){animation-duration:12s;animation-delay:-3s}
+.steam path:nth-child(3){animation-duration:10.5s;animation-delay:-6s}
+.steam path:nth-child(4){animation-duration:13s;animation-delay:-1.5s}
+@keyframes rise{to{stroke-dashoffset:-150}}
+@media (prefers-reduced-motion:reduce){.steam path{animation:none}}
+.hero-in{position:relative}
+.hero h1{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:29px;
+  line-height:1.45;letter-spacing:.01em}
+.hero h1 .pin{color:var(--momo)}
+.dates{margin-top:18px;font-size:14px;color:#A9CBE0;letter-spacing:.06em}
+.base{margin-top:6px;font-size:13px;color:#7F9FB6}
+
+/* ---------- toggle ---------- */
+.kanji{display:flex;align-items:center;gap:10px;padding:14px 24px;
+  background:var(--fukaai);border-top:1px solid rgba(255,255,255,.1)}
+.kanji span{font-size:12.5px;color:#8FB2C8;flex:1}
+.sw{width:46px;height:26px;border-radius:13px;background:#2C4D69;border:none;
+  position:relative;cursor:pointer;transition:background .22s;flex:none}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;
+  border-radius:50%;background:#fff;transition:transform .22s}
+.sw:focus-visible{outline:2px solid var(--momo);outline-offset:2px}
+body.staff .sw{background:var(--momo)}
+body.staff .sw::after{transform:translateX(20px)}
+
+/* ---------- day tabs ---------- */
+.tabs{display:flex;position:sticky;top:0;z-index:20;background:#fff;
+  border-bottom:1px solid var(--sen)}
+.tab{flex:1;border:none;background:none;padding:15px 4px 13px;cursor:pointer;
+  font-family:inherit;font-size:14px;color:var(--usu);border-bottom:2.5px solid transparent}
+.tab b{display:block;font-family:"Zen Maru Gothic",sans-serif;font-size:16.5px;
+  font-weight:700;color:var(--sumi);line-height:1.3}
+.tab small{font-size:11px;letter-spacing:.04em}
+.tab[aria-selected="true"]{border-bottom-color:var(--umi)}
+.tab[aria-selected="true"] b{color:var(--umi)}
+.tab:focus-visible{outline:2px solid var(--umi);outline-offset:-3px}
+
+/* ---------- timeline ---------- */
+.day{padding:26px 22px 34px}
+.day[hidden]{display:none}
+.dayhead{font-size:13px;color:var(--usu);margin-bottom:22px;padding-left:2px}
+.tl{position:relative;padding-left:76px}
+.tl::before{content:"";position:absolute;left:63px;top:8px;bottom:22px;
+  width:1.5px;background:var(--sen)}
+.stop{position:relative;padding-bottom:24px}
+.stop:last-child{padding-bottom:0}
+.stop .t{position:absolute;left:-76px;top:-1px;width:48px;text-align:right;
+  font-size:13px;color:var(--usu);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.stop .dot{position:absolute;left:-19px;top:7px;width:11px;height:11px;border-radius:50%;
+  background:#fff;border:2.5px solid var(--sen)}
+.stop.is-goshuin .dot{border-color:var(--shu)}
+.stop.is-onsen  .dot{border-color:var(--umi)}
+.stop.is-gourmet .dot{border-color:#D98E1F}
+.stop.is-main   .dot{border-color:var(--momo);background:var(--momo);
+  box-shadow:0 0 0 4px rgba(238,143,166,.2)}
+.stop h3{font-family:"Zen Maru Gothic",sans-serif;font-size:16.5px;font-weight:700;
+  line-height:1.5;letter-spacing:.01em}
+.stop p{font-size:13.5px;color:var(--usu);margin-top:3px;line-height:1.7}
+.chip{display:inline-block;font-size:10.5px;padding:1.5px 8px;border-radius:9px;
+  margin-left:7px;vertical-align:2px;font-weight:500}
+.chip.goshuin{background:#FBEDEC;color:var(--shu)}
+.chip.onsen{background:#E6F1F8;color:var(--umi)}
+.chip.gourmet{background:#FBF2E2;color:#9A6410}
+.chip.main{background:#FDECF1;color:#C2557A}
+
+/* ---------- sections ---------- */
+section{padding:30px 22px;border-top:8px solid var(--yuke)}
+h2{font-family:"Zen Maru Gothic",sans-serif;font-size:19px;font-weight:700;
+  margin-bottom:5px;letter-spacing:.01em}
+.lead{font-size:13px;color:var(--usu);margin-bottom:20px}
+.staff-only{display:none}
+body.staff .staff-only{display:block}
+
+/* checks */
+.check{display:flex;gap:11px;padding:13px 0;border-bottom:1px dashed var(--sen)}
+.check input{margin-top:5px;width:17px;height:17px;accent-color:var(--umi);flex:none}
+.check div{flex:1}
+.check b{font-size:14px;font-weight:500;display:block}
+.check em{font-style:normal;font-size:12px;color:var(--usu);display:block;
+  margin-top:2px;line-height:1.6}
+.check a{color:var(--umi);font-size:12px;text-decoration:none;border-bottom:1px solid #B7D5E7}
+
+/* pack */
+.pack{display:flex;flex-wrap:wrap;gap:8px}
+.pack li{list-style:none;font-size:13px;padding:6px 13px;background:var(--yuke);
+  border-radius:16px;color:#3C5566}
+
+/* someday */
+.someday li{list-style:none;padding:11px 0;border-bottom:1px dashed var(--sen);font-size:14px}
+.someday em{font-style:normal;font-size:12px;color:var(--usu);display:block;margin-top:1px}
+
+footer{padding:28px 22px 46px;text-align:center;font-size:11.5px;color:var(--usu);
+  border-top:8px solid var(--yuke);line-height:1.9}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <svg class="steam" viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M60 200 C 40 160, 82 132, 58 96 C 40 68, 74 44, 60 8"/>
+    <path d="M150 200 C 128 156, 172 128, 146 92 C 128 62, 164 40, 150 4"/>
+    <path d="M252 200 C 232 158, 274 130, 248 94 C 230 66, 266 42, 252 6"/>
+    <path d="M344 200 C 324 162, 366 134, 340 98 C 322 70, 358 46, 344 10"/>
+  </svg>
+  <div class="hero-in">
+    <h1>別府ゆけむりと、<br><span class="pin">サンリオ</span>の三日間</h1>
+    <p class="dates" id="h-dates"></p>
+    <p class="base" id="h-base"></p>
+  </div>
+</header>
+
+<div class="kanji">
+  <span id="sw-label"></span>
+  <button class="sw" id="sw" role="switch" aria-checked="false" aria-labelledby="sw-label"></button>
+</div>
+
+<nav class="tabs" id="tabs" role="tablist"></nav>
+<main id="days"></main>
+
+<section class="staff-only">
+  <h2>出発前に確認すること</h2>
+  <p class="lead">ここは人間の仕事です。当日シャッターの前で立ち尽くさないために。</p>
+  <div id="checks"></div>
+</section>
+
+<section>
+  <h2>持ちもの</h2>
+  <p class="lead">温泉と神社と遊園地。荷物の要求がバラバラな旅です。</p>
+  <ul class="pack" id="pack"></ul>
+</section>
+
+<section class="staff-only">
+  <h2>またいつか</h2>
+  <p class="lead">今回は入らなかったもの。捨てずに置いておきます。</p>
+  <ul class="someday" id="someday"></ul>
+</section>
+
+<footer id="foot"></footer>
+</div>
+
+<script>
+/* =========================================================================
+   ▼▼▼ ここだけ書き換えれば、しおり全体が変わります ▼▼▼
+
+   これは【公開用】です。誰でもURLで見られる前提なので、
+   宿の名前・自宅の地名・費用は入れません。
+   それらは手元のファイルと母艦（スプレッドシート）で管理します。
+
+   tag は  goshuin / onsen / gourmet / main / move  の5種類。
+   ========================================================================= */
+const TRIP = {
+  dates: "2026.9.19 sat – 9.21 mon ／ 2泊3日",
+  base : "拠点：別府の宿",
+  swLabel: "確認モード（出発前チェックを表示）",
+  foot : "情報は2026年9月6日時点の調べ。<br>営業時間と料金は、出発前に公式サイトでもう一度。",
+
+  days: [
+    { tab:"1日目", sub:"9/19 土", head:"阿蘇からやまなみを越えて、別府に入る日。",
+      stops:[
+        {time:"8:00",  name:"出発", tag:"move",
+         note:"連休初日。渋滞のピークを避けたいので早めに。"},
+        {time:"9:00",  name:"阿蘇神社", tag:"goshuin",
+         note:"地震で被災した6棟の復旧が2023年12月に完了。授与所は9時から。"},
+        {time:"10:00", name:"やまなみハイウェイ", tag:"move",
+         note:"全長約50kmの絶景路線。瀬の本あたりで一度降りて空気を吸う。"},
+        {time:"12:30", name:"湯布院で昼ごはん", tag:"gourmet",
+         note:"混むので、ここは並ばない店を選ぶ日。"},
+        {time:"14:30", name:"竹瓦温泉", tag:"onsen",
+         note:"6:30〜22:30。名物の砂湯は枠が埋まりやすいので、着いたらまず受付へ。"},
+        {time:"16:00", name:"チェックイン", tag:"move",
+         note:"共用リビングとキッチンのある宿。徒歩1分に温泉あり。"},
+        {time:"17:30", name:"東洋軒（とり天）", tag:"gourmet",
+         note:"創業100年。行列は外に見えるけど、記名リストは店内にあります。"},
+        {time:"20:00", name:"宿のそばの温泉", tag:"onsen",
+         note:"無料券をもらえるらしい。一日の足を洗いに。"}
+      ]},
+    { tab:"2日目", sub:"9/20 日", head:"サンリオの日。夜8時まで、たっぷり。",
+      stops:[
+        {time:"8:30",  name:"宿を出発", tag:"move", note:"別府から日出町まで車で30分弱。"},
+        {time:"9:00",  name:"日出若宮八幡神社", tag:"goshuin",
+         note:"キティのお守りと、サンリオの限定御朱印。境内から別府湾が見えます。"},
+        {time:"10:00", name:"ハーモニーランド", tag:"main",
+         note:"開園と同時に。駐車場は600円、いったん出ると再度かかります。"},
+        {time:"11:30", name:"早めの昼ごはん", tag:"gourmet",
+         note:"園内のレストランは1軒だけ。12時台に並ぶと2時間コースという声も。"},
+        {time:"17:00", name:"夕方からの園内", tag:"main",
+         note:"この日は夜間営業。暗くなってからのパレードと灯りが本番。"},
+        {time:"20:00", name:"閉園、別府へ", tag:"move", note:"最終入園は閉園の1時間前。"}
+      ]},
+    { tab:"3日目", sub:"9/21 月", head:"歩いて御朱印、蒸して昼ごはん、山を越えて帰る。",
+      stops:[
+        {time:"9:00",  name:"八幡朝見神社", tag:"goshuin",
+         note:"宿から歩いて数分。限定御朱印の種類が多いことで知られる神社。"},
+        {time:"10:00", name:"チェックアウト", tag:"move", note:"荷物を積んで鉄輪へ。"},
+        {time:"10:30", name:"地獄蒸し工房 鉄輪", tag:"gourmet",
+         note:"食材を選んで自分で蒸す。注文の列だけで30分という声もあるので、早めに。"},
+        {time:"12:30", name:"やまなみハイウェイを南下", tag:"move",
+         note:"来た道を逆から。光の角度が変わると、まったく違う景色になります。"},
+        {time:"15:30", name:"帰着", tag:"move", note:"御朱印3つ、無事回収。"}
+      ]}
+  ],
+
+  checks: [
+    {label:"ハーモニーランド 9/20の営業時間と料金",
+     why:"夜間営業日かどうかで料金が変わります。公式で最終確認を。",
+     url:"https://www.harmonyland.jp/ticket/passport", link:"公式のチケット案内"},
+    {label:"パスポートの事前購入", why:"前売りだとチケット窓口に並ばずに入園できます。JAF優待は9月23日まで。"},
+    {label:"宿のチェックイン開始時刻", why:"14:30に温泉、16:00にチェックインの流れが成立するか。"},
+    {label:"竹瓦温泉の砂湯", why:"早めの予約を勧める声があります。当日枠があるかどうか。"},
+    {label:"各神社の授与所の時間", why:"参拝は24時間できても、御朱印をいただける時間は別です。"},
+    {label:"東洋軒の連休中の待ち時間", why:"通常でも30分ほど。連休はもっと見ておいたほうが安全です。"}
+  ],
+
+  pack: ["御朱印帳","小銭（お賽銭と御朱印）","タオル2〜3枚","着替え","アイマスクと耳栓",
+         "モバイルバッテリー","ETCカード","日焼け止め","羽織るもの（夜の園内）","カメラ"],
+
+  someday: [
+    {name:"別府冷麺（六盛）", why:"営業時間が11:30〜13:45／18:00〜19:45と短く、今回の動線と合わず。水曜定休。"},
+    {name:"地獄めぐり", why:"海地獄の青は一度見ておきたい。次に別府へ来たときに。"},
+    {name:"明礬温泉の湯の花小屋", why:"やまなみへ抜ける途中に寄れる位置。時間があれば。"}
+  ]
+};
+/* ▲▲▲ 書き換えるのはここまで ▲▲▲ */
+
+
+/* ---------- 以下は表示の仕組み。基本さわらなくて大丈夫です ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const CHIP = {goshuin:"御朱印", onsen:"温泉", gourmet:"ごはん", main:"メイン"};
+
+$("#h-dates").textContent = TRIP.dates;
+$("#h-base").textContent  = TRIP.base;
+$("#sw-label").textContent = TRIP.swLabel;
+$("#foot").innerHTML = TRIP.foot;
+
+TRIP.days.forEach((d, i) => {
+  const tab = document.createElement("button");
+  tab.className = "tab"; tab.type = "button"; tab.role = "tab";
+  tab.id = "tab" + i; tab.setAttribute("aria-controls", "day" + i);
+  tab.setAttribute("aria-selected", i === 0);
+  tab.innerHTML = `<b>${esc(d.tab)}</b><small>${esc(d.sub)}</small>`;
+  tab.onclick = () => show(i);
+  $("#tabs").append(tab);
+
+  const sec = document.createElement("section");
+  sec.className = "day"; sec.id = "day" + i; sec.role = "tabpanel";
+  sec.setAttribute("aria-labelledby", "tab" + i);
+  sec.hidden = i !== 0;
+  sec.style.borderTop = "none";
+  sec.innerHTML = `<p class="dayhead">${esc(d.head)}</p><div class="tl">` +
+    d.stops.map(s => `
+      <div class="stop is-${esc(s.tag)}">
+        <span class="t">${esc(s.time)}</span><span class="dot"></span>
+        <h3>${esc(s.name)}${CHIP[s.tag] ? `<span class="chip ${s.tag}">${CHIP[s.tag]}</span>` : ""}</h3>
+        ${s.note ? `<p>${esc(s.note)}</p>` : ""}
+      </div>`).join("") + `</div>`;
+  $("#days").append(sec);
+});
+function show(n){
+  TRIP.days.forEach((_, i) => {
+    $("#tab" + i).setAttribute("aria-selected", i === n);
+    $("#day" + i).hidden = i !== n;
+  });
+}
+
+$("#checks").innerHTML = TRIP.checks.map(c => `
+  <label class="check">
+    <input type="checkbox">
+    <div><b>${esc(c.label)}</b><em>${esc(c.why)}</em>
+    ${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.link || "公式サイト")}</a>` : ""}</div>
+  </label>`).join("");
+
+$("#pack").innerHTML = TRIP.pack.map(p => `<li>${esc(p)}</li>`).join("");
+$("#someday").innerHTML = TRIP.someday.map(s =>
+  `<li>${esc(s.name)}<em>${esc(s.why)}</em></li>`).join("");
+
+$("#sw").onclick = function(){
+  const on = document.body.classList.toggle("staff");
+  this.setAttribute("aria-checked", on);
+};
+</script>
+</body>
+</html>
