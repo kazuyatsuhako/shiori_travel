@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -114,6 +115,13 @@ body.staff .staff-only{display:block}
 .check em{font-style:normal;font-size:12px;color:var(--usu);display:block;
   margin-top:2px;line-height:1.6}
 .check a{color:var(--umi);font-size:12px;text-decoration:none;border-bottom:1px solid #B7D5E7}
+.ctbar{display:flex;align-items:center;justify-content:space-between;
+  margin-top:16px;font-size:12.5px;color:var(--usu)}
+.ctbar b{font-weight:500;color:var(--umi)}
+.ctbar button{border:1px solid var(--sen);background:none;border-radius:14px;
+  padding:5px 14px;font-family:inherit;font-size:12px;color:var(--usu);cursor:pointer}
+.ctbar button:active{background:var(--yuke)}
+.ctbar button:focus-visible{outline:2px solid var(--umi);outline-offset:2px}
 
 /* pack */
 .pack{display:flex;flex-wrap:wrap;gap:8px}
@@ -157,6 +165,7 @@ footer{padding:28px 22px 46px;text-align:center;font-size:11.5px;color:var(--usu
   <h2>出発前に確認すること</h2>
   <p class="lead">ここは人間の仕事です。当日シャッターの前で立ち尽くさないために。</p>
   <div id="checks"></div>
+  <div class="ctbar"><b id="ct"></b><button type="button" id="reset">リセット</button></div>
 </section>
 
 <section>
@@ -299,12 +308,45 @@ function show(n){
   });
 }
 
-$("#checks").innerHTML = TRIP.checks.map(c => `
+/* 確認事項。チェック状態はこの端末のブラウザにだけ保存されます。
+   別の端末や別のブラウザでは共有されません。 */
+const KEY  = "shiori-checks-v1";
+const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
+const save = o  => { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch {} };
+let done = load();
+
+$("#checks").innerHTML = TRIP.checks.map((c, i) => `
   <label class="check">
-    <input type="checkbox">
+    <input type="checkbox" data-k="${i}"${done[i] ? " checked" : ""}>
     <div><b>${esc(c.label)}</b><em>${esc(c.why)}</em>
     ${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.link || "公式サイト")}</a>` : ""}</div>
   </label>`).join("");
+
+/* リンクを押したときにチェックが入ってしまうのを防ぐ */
+$("#checks").addEventListener("click", e => {
+  if (e.target.closest("a")) e.stopPropagation();
+});
+
+$("#checks").addEventListener("change", e => {
+  if (e.target.type !== "checkbox") return;
+  done[e.target.dataset.k] = e.target.checked;
+  save(done);
+  count();
+});
+
+function count(){
+  const n = TRIP.checks.filter((_, i) => done[i]).length;
+  $("#ct").textContent = n === TRIP.checks.length
+    ? "全部おわりました"
+    : `${n} / ${TRIP.checks.length} 確認ずみ`;
+}
+count();
+
+$("#reset").onclick = () => {
+  done = {}; save(done);
+  document.querySelectorAll("#checks input").forEach(el => el.checked = false);
+  count();
+};
 
 $("#pack").innerHTML = TRIP.pack.map(p => `<li>${esc(p)}</li>`).join("");
 $("#someday").innerHTML = TRIP.someday.map(s =>
